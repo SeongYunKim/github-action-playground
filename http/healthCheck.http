@@ -1,0 +1,2 @@
+### health check
+GET {{spring-playground-api}}/api/v1/healthcheck
