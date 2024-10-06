@@ -6,6 +6,7 @@ plugins {
     kotlin("plugin.jpa") apply false
     id("org.springframework.boot") apply false
     id("io.spring.dependency-management") apply false
+    id("com.google.cloud.tools.jib") apply false
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_17
@@ -42,15 +43,20 @@ subprojects {
         enabled = true
     }
 
+    kotlin {
+        jvmToolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+            vendor = JvmVendorSpec.AMAZON
+        }
+    }
+
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "17"
         }
     }
 
     tasks.withType<Test> {
         useJUnitPlatform()
     }
-
 }

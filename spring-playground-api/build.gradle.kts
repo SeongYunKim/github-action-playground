@@ -6,6 +6,8 @@ tasks.getByName("jar") {
     enabled = false
 }
 
+apply(plugin = "com.google.cloud.tools.jib")
+
 dependencies {
     implementation(project(":spring-playground-common"))
     implementation(project(":spring-playground-jpa"))
