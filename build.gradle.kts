@@ -46,7 +46,7 @@ subprojects {
     kotlin {
         jvmToolchain {
             languageVersion = JavaLanguageVersion.of(17)
-            vendor = JvmVendorSpec.AMAZON
+            vendor = JvmVendorSpec.ADOPTIUM
         }
     }
 
