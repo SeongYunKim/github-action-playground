@@ -29,7 +29,7 @@ configure<JibExtension> {
     }
 
     to {
-        image = registryRepository as String
+        image = registryRepository as String?
         tags = setOf(commitHashId)
     }
 
