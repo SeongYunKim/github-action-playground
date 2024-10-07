@@ -11,12 +11,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           java-version: 17
           distribution: adopt-openj9
 
       - name: Jib
         run: |
-          ./gradlew :spring-playground-api:jib |
-          -PregistryRepository=${{ secrets.REGISTRY_REPOSITORY }}
+          ./gradlew :spring-playground-api:jib \
+            -PregistryRepository=${{ secrets.REGISTRY_REPOSITORY }}
