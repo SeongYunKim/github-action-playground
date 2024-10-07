@@ -1,4 +1,5 @@
 import com.google.cloud.tools.jib.gradle.JibExtension
+import org.ajoberstar.grgit.Grgit
 
 tasks.getByName("bootJar") {
     enabled = true
@@ -9,6 +10,7 @@ tasks.getByName("jar") {
 }
 
 apply(plugin = "com.google.cloud.tools.jib")
+apply(plugin = "org.ajoberstar.grgit")
 
 dependencies {
     implementation(project(":spring-playground-common"))
@@ -18,13 +20,16 @@ dependencies {
 }
 
 configure<JibExtension> {
+    val git = Grgit.open { dir = rootDir }
+    val commitHashId = git.head().abbreviatedId
+
     from {
         image = "eclipse-temurin:17-jre"
     }
 
     to {
         image = "abc/abc"
-        tags = setOf("latest")
+        tags = setOf(commitHashId)
     }
 
     container {
