@@ -22,13 +22,14 @@ dependencies {
 configure<JibExtension> {
     val git = Grgit.open { dir = rootDir }
     val commitHashId = git.head().abbreviatedId
+    val registryRepository = findProperty("registryRepository")
 
     from {
         image = "eclipse-temurin:17-jre"
     }
 
     to {
-        image = "abc/abc"
+        image = registryRepository as String
         tags = setOf(commitHashId)
     }
 
