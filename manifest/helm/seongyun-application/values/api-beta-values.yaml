@@ -1,0 +1,5 @@
+application: api
+profile: beta
+
+deployment:
+  replicaCount: 1

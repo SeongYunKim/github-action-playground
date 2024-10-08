@@ -1,4 +1,4 @@
-name: API Push Image
+name: Build & Deployment
 
 on:
   workflow_dispatch:
@@ -36,6 +36,9 @@ jobs:
       AWS_REGION: ap-northeast-2
       EKS_CLUSTER_NAME: eks-test
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -43,7 +46,13 @@ jobs:
           # TODO OIDC Provider 방식 전환
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+
       - name: Update Kubeconfig
         run: aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.EKS_CLUSTER_NAME }}
-      - name: Get Pods
-        run: kubectl get pods
+
+      - name: Deploy Helm Chart
+        run: |
+          helm upgrade --install api-release \
+          manifest/helm/seongyun-application \
+          -f manifest/helm/seongyun-application/values/api-release-values.yaml \
+          --set registryUserName=${{ secrets.REGISTRY_USER_NAME }}

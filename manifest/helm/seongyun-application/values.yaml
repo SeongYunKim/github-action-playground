@@ -1,0 +1,9 @@
+application: api
+profile: beta
+
+deployment:
+  replicaCount: 1
+
+service:
+  port: 8080
+  targetPort: 8080

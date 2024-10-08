@@ -1,0 +1,5 @@
+application: admin
+profile: release
+
+deployment:
+  replicaCount: 2

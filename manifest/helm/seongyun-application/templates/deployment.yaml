@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.application }}-deployment-{{ .Values.profile }}
+  labels:
+    {{- include "seongyun-application.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "seongyun-application.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      name: {{ .Values.application }}-pod-{{ .Values.profile }}
+      labels:
+        {{- include "seongyun-application.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Values.application }}-container-{{ .Values.profile }}
+          image: {{ .Values.registryUserName }}/github-action-test
+          imagePullPolicy: Always
+          env:
+            - name: SPRING_PROFILE
+              value: {{ .Values.profile }}

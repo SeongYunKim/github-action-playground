@@ -1,0 +1,5 @@
+application: api
+profile: release
+
+deployment:
+  replicaCount: 2
