@@ -1,0 +1,5 @@
+application: api
+profile: local
+
+deployment:
+  replicaCount: 1
