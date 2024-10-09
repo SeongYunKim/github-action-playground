@@ -27,7 +27,7 @@ jobs:
       - name: Jib
         run: |
           ./gradlew :spring-playground-api:jib \
-            -PregistryRepository=${{ secrets.REGISTRY_USER_NAME }}/${{ env.REGISTRY_REPOSITORY_NAME }}
+            -PregistryRepository=${{ secrets.REGISTRY_USER_NAME }}/${{ env.REGISTRY_REPOSITORY_NAME }} \
             -PimageTag=${{ github.sha }}_${{ github.ref_name }}
 
   deployment:
@@ -56,5 +56,5 @@ jobs:
           helm upgrade --install api-release \
             manifest/helm/seongyun-application \
             -f manifest/helm/seongyun-application/values/api-release-values.yaml \
-            --set registryUserName=${{ secrets.REGISTRY_USER_NAME }}
+            --set registryUserName=${{ secrets.REGISTRY_USER_NAME }} \
             --set imageTag=${{ github.sha }}_${{ github.ref_name }}
