@@ -1,0 +1,17 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - 'test/**'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo
+        run: |
+          echo $GITHUB_SHA
+          echo $GITHUB_REF
+          echo $GITHUB_REF_NAME
