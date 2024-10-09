@@ -7,7 +7,6 @@ plugins {
     id("org.springframework.boot") apply false
     id("io.spring.dependency-management") apply false
     id("com.google.cloud.tools.jib") apply false
-    id("org.ajoberstar.grgit") apply false
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_17
