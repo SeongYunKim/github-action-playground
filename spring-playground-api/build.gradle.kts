@@ -1,5 +1,4 @@
 import com.google.cloud.tools.jib.gradle.JibExtension
-import org.ajoberstar.grgit.Grgit
 
 tasks.getByName("bootJar") {
     enabled = true
@@ -10,7 +9,6 @@ tasks.getByName("jar") {
 }
 
 apply(plugin = "com.google.cloud.tools.jib")
-apply(plugin = "org.ajoberstar.grgit")
 
 dependencies {
     implementation(project(":spring-playground-common"))
@@ -20,17 +18,16 @@ dependencies {
 }
 
 configure<JibExtension> {
-    val git = Grgit.open { dir = rootDir }
-    val commitHashId = git.head().abbreviatedId
-    val registryRepository = findProperty("registryRepository")
+    val registryRepository = findProperty("registryRepository") as String?
+    val imageTag = findProperty("imageTag") as String?
 
     from {
         image = "eclipse-temurin:17-jre"
     }
 
     to {
-        image = registryRepository as String?
-        tags = setOf(commitHashId)
+        image = registryRepository
+        tags = setOf(imageTag)
     }
 
     container {

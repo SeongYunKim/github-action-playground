@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: {{ .Values.application }}-container-{{ .Values.profile }}
-          image: {{ .Values.registryUserName }}/github-action-test
+          image: {{ .Values.registryUserName }}/github-action-test:{{ .Values.imageTag }}
           imagePullPolicy: Always
           env:
             - name: SPRING_PROFILE
