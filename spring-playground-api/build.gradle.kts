@@ -19,7 +19,7 @@ dependencies {
 
 configure<JibExtension> {
     val registryRepository = findProperty("registryRepository") as String?
-    val imageTag = findProperty("imageTag") as String?
+    val imageTag = findProperty("imageTag") as String? ?: "latest"
 
     from {
         image = "eclipse-temurin:17-jre"
