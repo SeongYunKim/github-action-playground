@@ -12,6 +12,6 @@ jobs:
     steps:
       - name: Echo
         run: |
-          echo ${{GITHUB_SHA}}_${{GITHUB_REF_NAME}}
+          echo ${{github.sha}}_${{github.ref_name}}
           echo $GITHUB_REF
           echo $GITHUB_REF_NAME
