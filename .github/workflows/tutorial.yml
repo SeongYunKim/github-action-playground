@@ -2,6 +2,21 @@ name: Build & Deployment
 
 on:
   workflow_dispatch:
+    inputs:
+      application:
+        required: true
+        description: Application
+        type: choice
+        options:
+          - api
+          - admin
+      profile:
+        required: true
+        description: Profile
+        type: choice
+        options:
+          - beta
+          - release
 
 jobs:
   build:
@@ -63,8 +78,8 @@ jobs:
 
       - name: Deploy Helm Chart
         run: |
-          helm upgrade --install api-release \
+          helm upgrade --install ${{ github.event.inputs.application }}-${{ github.event.inputs.profile }} \
             manifest/helm/seongyun-application \
-            -f manifest/helm/seongyun-application/values/api-release-values.yaml \
+            -f manifest/helm/seongyun-application/values/${{ github.event.inputs.application }}-${{ github.event.inputs.profile }}-values.yaml \
             --set registryUserName=${{ secrets.REGISTRY_USER_NAME }} \
             --set imageTag=${{ github.sha }}_${{ github.ref_name }}
