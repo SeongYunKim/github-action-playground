@@ -6,3 +6,5 @@ spring:
   config:
     import:
       - application-jpa.yml
+
+management.endpoint.health.probes.enabled: on
