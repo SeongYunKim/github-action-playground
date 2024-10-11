@@ -1,0 +1,6 @@
+releases:
+  - name: api-release
+    namespace: default
+    chart: ../
+    values:
+      - ../values/api-release-values.yaml
